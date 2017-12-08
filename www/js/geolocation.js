@@ -136,6 +136,8 @@ function populateHistory()
    {
 
 
+
+
        var URL= "http://127.0.0.1:8000/listloc/";
        const xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function () {
@@ -170,10 +172,12 @@ function populateHistory()
 
                     //displayMap
 
-                   console.log(map)
 
-                   console.log(document.getElementById('map'))
+
                    displayMap(response);
+
+
+
 
                } else {
                    console.log('Error ' + xhr.statusText);

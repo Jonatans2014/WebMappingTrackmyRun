@@ -186,10 +186,13 @@
 
             var path;
             var map;
-
-
+            var latlngs = [];
+            var i;
+            var marker1;
+            var marker2;
 
             function displayMap(getLatLongId) {
+
 
 
 
@@ -199,13 +202,13 @@
                 {
 
 
+
                     $("#track_info").attr("track_id", $(this).text());
                     console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
                 });
 
 
-                $("body").on("pageshow",'#track_info', function(event, ui){
-
+                $("body").on("pageshow",'#track_info', function(event, ui) {
 
 
 
@@ -213,11 +216,9 @@
 
                     // Find the track_id of the workout they are viewing
                     var key = $(this).attr("track_id");
-                    console.log("this is key ",getLatLongId)
+                    console.log("this is key ", getLatLongId)
                     // Update the Track Info page header to the track_id
                     $("#track_info div[data-role=header] h1").text(key);
-
-
 
 
                     // makeBasicMap();
@@ -226,15 +227,20 @@
                     var data = window.localStorage.getItem(key);
 
 
-                    for(var i =0 ; i < getLatLongId.features.length; i ++)
-                    {
-                        if(getLatLongId.features[i].properties.TrackID === key)
-                        {
+                    for (var i = 0; i < getLatLongId.features.length; i++) {
+                        if (getLatLongId.features[i].properties.TrackID === key) {
                             getKey = getLatLongId.features[i].geometry.coordinates
                         }
 
 
                     }
+
+
+                    for(i = 0; i < getKey.length; i ++)
+                    {
+                        console.log(getKey[i]);
+                    }
+
 
                     console.log("getkey huuuu I got key And Ill get good grade too",getKey);
 
@@ -244,8 +250,8 @@
 
 
 
-                    for (var i = 0, latlngs = [], len = route.length; i < len; i++) {
-                        latlngs.push(new L.LatLng(route[i][0], route[i][1]));
+                    for ( i = 0; i < getKey.length; i++) {
+                        latlngs.push(new L.LatLng(getKey[i][0], getKey[i][1]));
                     }
 
 
@@ -253,24 +259,41 @@
 
                     if(map === null || map === undefined)
                     {
+
+
+                        map = L.map('map');
+
+                        var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+                        }).addTo(map);
+
+
+
+                    }else {
+                        map.removeLayer(marker1)
+                        map.removeLayer(marker2)
+                        map.removeLayer(path)
+
+
+                    }
+
                     path = L.polyline(latlngs);
 
-                    map = L.map('map');
-
-                    var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-                    }).addTo(map);
+                        map.fitBounds(L.latLngBounds(latlngs));
 
 
-                    map.fitBounds(L.latLngBounds(latlngs));
+                    marker1 = L.marker(latlngs[0]);
+                    marker2 = L.marker(latlngs[i - 1]);
 
-                    map.addLayer(L.marker(latlngs[0]));
-                    map.addLayer(L.marker(latlngs[len - 1]));
+                    map.addLayer(marker1);
+                    map.addLayer(marker2);
+
 
                     map.addLayer(path);
+                    path.snakeIn();
 
-                    path.bindPopup("Hello world");
-                    }
+
+//                    path.bindPopup("Hello world");
                 });
 
 
@@ -284,6 +307,7 @@
 
 
             function snake() {
+
                 path.snakeIn();
             }
 
