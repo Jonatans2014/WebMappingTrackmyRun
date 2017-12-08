@@ -31,7 +31,8 @@
 
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -40,9 +41,19 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
               integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
               crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-                integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-                crossorigin=""></script>
+
+
+
+        <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+              integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+              crossorigin=""></script>-->
+
+
+      <link href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" rel="stylesheet" type="text/css" />
+      <!-- <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script> -->
+        <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet-src.js"></script>
+
+        <script  src="js/L.Polyline.SnakeAnim.js"></script>
 
         <link rel="stylesheet" href="css/index.css" />
         <title>TrackMyRun</title>
@@ -153,7 +164,10 @@
     <div data-role="content">
         <p id="track_info_info"></p>
 
-        <div id="map_canvas" style="position:absolute;bottom:0;left:0;width:100%;height:300px;"></div>
+        <div id="map"></div>
+
+        <p><button onclick='snake()'>SNAKE! IT'S A SNAKE!</button></p></div>
+
 
     </div>
 
@@ -161,5 +175,123 @@
 </div><!-- /page -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/geolocation.js"></script>
+
+        <script  type="text/javascript" src="js/route.js"></script>
+
+
+
+<!-- /rest of the code needs to be here so the code can work-->
+        <script>
+
+
+            var path;
+            var map;
+
+
+
+            function displayMap(getLatLongId) {
+
+
+
+                var getKey
+
+                $("body").on('click','#history_tracklist li a', function()
+                {
+
+
+                    $("#track_info").attr("track_id", $(this).text());
+                    console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
+                });
+
+
+                $("body").on("pageshow",'#track_info', function(event, ui){
+
+
+
+
+                    // When the user views the Track Info page
+
+                    // Find the track_id of the workout they are viewing
+                    var key = $(this).attr("track_id");
+                    console.log("this is key ",getLatLongId)
+                    // Update the Track Info page header to the track_id
+                    $("#track_info div[data-role=header] h1").text(key);
+
+
+
+
+                    // makeBasicMap();
+
+                    // Get all the GPS data for the specific workout
+                    var data = window.localStorage.getItem(key);
+
+
+                    for(var i =0 ; i < getLatLongId.features.length; i ++)
+                    {
+                        if(getLatLongId.features[i].properties.TrackID === key)
+                        {
+                            getKey = getLatLongId.features[i].geometry.coordinates
+                        }
+
+
+                    }
+
+                    console.log("getkey huuuu I got key And Ill get good grade too",getKey);
+
+
+                    // Turn the stringified GPS data back into a JS object
+                    data = JSON.parse(data);
+
+
+
+                    for (var i = 0, latlngs = [], len = route.length; i < len; i++) {
+                        latlngs.push(new L.LatLng(route[i][0], route[i][1]));
+                    }
+
+
+
+
+                    if(map === null || map === undefined)
+                    {
+                    path = L.polyline(latlngs);
+
+                    map = L.map('map');
+
+                    var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+                    }).addTo(map);
+
+
+                    map.fitBounds(L.latLngBounds(latlngs));
+
+                    map.addLayer(L.marker(latlngs[0]));
+                    map.addLayer(L.marker(latlngs[len - 1]));
+
+                    map.addLayer(path);
+
+                    path.bindPopup("Hello world");
+                    }
+                });
+
+
+
+
+
+            }
+
+
+
+
+
+            function snake() {
+                path.snakeIn();
+            }
+
+            path.on('snakestart snake snakeend', function(ev){
+                console.log(ev.type);
+            });
+
+        </script>
+
     </body>
 </html>

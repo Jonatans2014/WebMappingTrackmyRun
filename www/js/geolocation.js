@@ -32,6 +32,7 @@ function recordLocation() {
 
 
     $("body").on('click','#startTracking_start', function(){
+
         // onSuccess Callback
         //   This method accepts a `Position` object, which contains
         //   the current GPS coordinates
@@ -96,6 +97,8 @@ function stopdata()
 {
     $("body").on('click','#startTracking_stop', function()
     {
+
+        stopMap();
         console.log("inside stop",data);
         // Stop tracking the user
         navigator.geolocation.clearWatch(watch_id);
@@ -132,6 +135,7 @@ function populateHistory()
     $("body").on("pageshow",'#history', function(event, ui)
    {
 
+
        var URL= "http://127.0.0.1:8000/listloc/";
        const xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function () {
@@ -144,6 +148,8 @@ function populateHistory()
                    // Count the number of entries in localStorage and display this information to the user
                    CountID = response.features.length;
 
+
+
                    $("#tracks_recorded").html("<strong>" + response.features.length + "</strong> workout(s) recorded");
 
                    // Empty the list of recorded tracks
@@ -152,10 +158,22 @@ function populateHistory()
                    console.log("here",CountID)
                    for(i =0; i <response.features.length; i ++ )
                    {
+
+                       console.log("all coors2", getCoors);
                        $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + response.features[i].properties.TrackID + "</a></li>");
                    }
                    // refresh list
                    $("#history_tracklist").listview('refresh');
+
+
+
+
+                    //displayMap
+
+                   console.log(map)
+
+                   console.log(document.getElementById('map'))
+                   displayMap(response);
 
                } else {
                    console.log('Error ' + xhr.statusText);
@@ -169,35 +187,54 @@ function populateHistory()
 }
 
 
-function displayMap() {
-
-
-    $("body").on('click','#history_tracklist li a', function()
-    {
-
-        $("#track_info").attr("track_id", $(this).text());
-        console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
-    });
-
-
-    $("body").on("pageshow",'#track_info', function(event, ui){
-    // When the user views the Track Info page
-
-        // Find the track_id of the workout they are viewing
-        var key = $(this).attr("track_id");
-        console.log("this is key ",key)
-
-        // Update the Track Info page header to the track_id
-        $("#track_info div[data-role=header] h1").text(key);
-
-        // Get all the GPS data for the specific workout
-        var data = window.localStorage.getItem(key);
-
-        // Turn the stringified GPS data back into a JS object
-        data = JSON.parse(data);});
-
-
-}
+// function displayMap(getLatLongId) {
+//     var getKey
+//
+//     $("body").on('click','#history_tracklist li a', function()
+//     {
+//
+//         $("#track_info").attr("track_id", $(this).text());
+//         console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
+//     });
+//
+//
+//     $("body").on("pageshow",'#track_info', function(event, ui){
+//     // When the user views the Track Info page
+//
+//
+//         // Find the track_id of the workout they are viewing
+//         var key = $(this).attr("track_id");
+//         console.log("this is key ",getLatLongId)
+//         // Update the Track Info page header to the track_id
+//         $("#track_info div[data-role=header] h1").text(key);
+//
+//
+//
+//
+//        // makeBasicMap();
+//
+//         // Get all the GPS data for the specific workout
+//         var data = window.localStorage.getItem(key);
+//
+//
+//         for(var i =0 ; i < getLatLongId.features.length; i ++)
+//         {
+//             if(getLatLongId.features[i].properties.TrackID === key)
+//             {
+//                  getKey = getLatLongId.features[i].geometry.coordinates
+//             }
+//
+//
+//         }
+//
+//         console.log("getkey",getKey);
+//
+//
+//         // Turn the stringified GPS data back into a JS object
+//         data = JSON.parse(data);});
+//
+//
+// }
 
 
 
@@ -259,11 +296,11 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        getPoinLocation();
+        // getPoinLocation();
         recordLocation();
         stopdata();
         populateHistory();
-        displayMap();
+
         navigator.geolocation.getCurrentPosition(getAndSendMylocation, onLocationError,);
 
 
