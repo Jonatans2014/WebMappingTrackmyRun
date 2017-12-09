@@ -190,9 +190,9 @@
             var i;
             var marker1;
             var marker2;
+            var markersLayer = L.layerGroup();
 
             function displayMap(getLatLongId) {
-
 
 
 
@@ -200,8 +200,8 @@
 
                 $("body").on('click','#history_tracklist li a', function()
                 {
-
-
+                    markersLayer.clearLayers();
+                    latlngs = [];
 
                     $("#track_info").attr("track_id", $(this).text());
                     console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
@@ -211,7 +211,7 @@
                 $("body").on("pageshow",'#track_info', function(event, ui) {
 
 
-
+                   
                     // When the user views the Track Info page
 
                     // Find the track_id of the workout they are viewing
@@ -269,27 +269,29 @@
 
 
 
-                    }else {
-                        map.removeLayer(marker1)
-                        map.removeLayer(marker2)
-                        map.removeLayer(path)
-
-
                     }
 
                     path = L.polyline(latlngs);
 
-                        map.fitBounds(L.latLngBounds(latlngs));
+                    map.fitBounds(L.latLngBounds(latlngs));
 
 
                     marker1 = L.marker(latlngs[0]);
                     marker2 = L.marker(latlngs[i - 1]);
 
-                    map.addLayer(marker1);
-                    map.addLayer(marker2);
+
+//                    markersLayer.addLayer(marker1)
+//                    markersLayer.addLayer(marker2)
+//                    markersLayer.addLayer(path)
 
 
-                    map.addLayer(path);
+                    markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
+
+//                    map.addLayer(marker1);
+//                    map.addLayer(marker2);
+//
+//
+//                    map.addLayer(path);
                     path.snakeIn();
 
 
@@ -314,6 +316,9 @@
             path.on('snakestart snake snakeend', function(ev){
                 console.log(ev.type);
             });
+
+
+
 
         </script>
 

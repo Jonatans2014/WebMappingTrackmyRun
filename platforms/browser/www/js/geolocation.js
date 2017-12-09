@@ -168,17 +168,17 @@ function populateHistory()
                    $("#history_tracklist").listview('refresh');
 
 
+                   // NOTE: The first thing we do here is clear the markers from the layer.
+                   if(marker1 !== undefined)
+                   {   map.removeLayer(marker1)
+                       map.removeLayer(marker2)
+                       map.removeLayer(path)
 
-
-                    //displayMap
-
+                   }
+                   //displayMap
 
 
                    displayMap(response);
-
-
-
-
                } else {
                    console.log('Error ' + xhr.statusText);
                }
