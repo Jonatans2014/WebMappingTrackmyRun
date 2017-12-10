@@ -1,5 +1,6 @@
 
 
+
 var track_id = '';      // Name/ID of the exercise
 var watch_id = null;    // ID of the geolocation
 var tracking_data = []; // Array containing GPS position objects
@@ -47,8 +48,8 @@ function recordLocation() {
                 'Speed: '             + position.coords.speed             + '\n' +
                 'Timestamp: '         + position.timestamp                + '\n');
 
-            tracking_data.push(position);
-            console.log(tracking_data);
+            tracking_data.push(position.coords.latitude,position.coords.longitude);
+            console.log("this is tracking",tracking_data);
         };
 
         // onError Callback receives a PositionError object
@@ -98,8 +99,6 @@ function stopdata()
     $("body").on('click','#startTracking_stop', function()
     {
 
-        stopMap();
-        console.log("inside stop",data);
         // Stop tracking the user
         navigator.geolocation.clearWatch(watch_id);
 
@@ -107,10 +106,67 @@ function stopdata()
         window.localStorage.setItem(track_id, JSON.stringify(tracking_data));
 
             //console.log(  window.localStorage.setItem(track_id, JSON.stringify(tracking_data)));
-            console.log(tracking_data)
+        console.log("this is other tracking ",tracking_data)
         // Reset watch_id and tracking_data
         var watch_id = null;
-        var data = null;
+
+
+
+
+
+
+        console.log("this is data",tracking_data)
+        var URL = "http://127.0.0.1:8000/listloc/";
+        var obj2= {
+            "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    tracking_data,
+                    tracking_data
+                ]
+
+            },
+            "properties": {
+                "TrackID": track_id
+            }
+        };
+
+
+        alert(obj2)
+        var myJSON = JSON.stringify(obj2);
+        console.log("woooork",myJSON);
+
+        //Store Geolocation to Django
+        var xhr = new XMLHttpRequest();
+        var url = URL;
+
+        xhr.open("POST",url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+
+        xhr.onreadystatechange = function() {
+            console.log(xhr.responseText)
+        };
+        xhr.send(myJSON);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // Tidy up the UI
@@ -119,7 +175,7 @@ function stopdata()
         $("#startTracking_status").html("Stopped tracking workout: <strong>" + track_id + "</strong>");
 
 
-        var getdata = tracking_data;
+
 
     });
 
@@ -134,10 +190,6 @@ function populateHistory()
 
     $("body").on("pageshow",'#history', function(event, ui)
    {
-
-
-
-
        var URL= "http://127.0.0.1:8000/listloc/";
        const xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function () {
@@ -168,13 +220,7 @@ function populateHistory()
                    $("#history_tracklist").listview('refresh');
 
 
-                   // NOTE: The first thing we do here is clear the markers from the layer.
-                   if(marker1 !== undefined)
-                   {   map.removeLayer(marker1)
-                       map.removeLayer(marker2)
-                       map.removeLayer(path)
 
-                   }
                    //displayMap
 
 
@@ -190,58 +236,6 @@ function populateHistory()
     });
 }
 
-
-// function displayMap(getLatLongId) {
-//     var getKey
-//
-//     $("body").on('click','#history_tracklist li a', function()
-//     {
-//
-//         $("#track_info").attr("track_id", $(this).text());
-//         console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
-//     });
-//
-//
-//     $("body").on("pageshow",'#track_info', function(event, ui){
-//     // When the user views the Track Info page
-//
-//
-//         // Find the track_id of the workout they are viewing
-//         var key = $(this).attr("track_id");
-//         console.log("this is key ",getLatLongId)
-//         // Update the Track Info page header to the track_id
-//         $("#track_info div[data-role=header] h1").text(key);
-//
-//
-//
-//
-//        // makeBasicMap();
-//
-//         // Get all the GPS data for the specific workout
-//         var data = window.localStorage.getItem(key);
-//
-//
-//         for(var i =0 ; i < getLatLongId.features.length; i ++)
-//         {
-//             if(getLatLongId.features[i].properties.TrackID === key)
-//             {
-//                  getKey = getLatLongId.features[i].geometry.coordinates
-//             }
-//
-//
-//         }
-//
-//         console.log("getkey",getKey);
-//
-//
-//         // Turn the stringified GPS data back into a JS object
-//         data = JSON.parse(data);});
-//
-//
-// }
-
-
-
 function getMyLocationCallBack() {
 
     navigator.geolocation.getCurrentPosition
@@ -251,35 +245,35 @@ function getMyLocationCallBack() {
 //function to get phone location and send to django
 var getAndSendMylocation = function (position) {
 
-    Latitude = position.coords.latitude;
-    Longitude = position.coords.longitude;
-    var Locationof = "JOhn";
-    var URL = "http://127.0.0.1:8000/listloc/";
-    var obj2= {
-        "name": Locationof,
-        "point": {
-            "type": "Point",
-            "coordinates": [
-                Latitude,
-                Longitude
-            ]
-        }
-    }
-
-    var myJSON = JSON.stringify(obj2);
-    console.log("woooork",myJSON);
-
-    //Store Geolocation to Django
-    var xhr = new XMLHttpRequest();
-    var url = URL;
-
-    xhr.open("POST",url, true);
-    xhr.setRequestHeader("Content-type", "application/json");
-
-    xhr.onreadystatechange = function() {
-        console.log(xhr.responseText)
-    };
-    xhr.send(myJSON);
+    // Latitude = position.coords.latitude;
+    // Longitude = position.coords.longitude;
+    // var Locationof = "JOhn";
+    // var URL = "http://127.0.0.1:8000/listloc/";
+    // var obj2= {
+    //     "name": Locationof,
+    //     "point": {
+    //         "type": "Point",
+    //         "coordinates": [
+    //             Latitude,
+    //             Longitude
+    //         ]
+    //     }
+    // }
+    //
+    // var myJSON = JSON.stringify(obj2);
+    // console.log("woooork",myJSON);
+    //
+    // //Store Geolocation to Django
+    // var xhr = new XMLHttpRequest();
+    // var url = URL;
+    //
+    // xhr.open("POST",url, true);
+    // xhr.setRequestHeader("Content-type", "application/json");
+    //
+    // xhr.onreadystatechange = function() {
+    //     console.log(xhr.responseText)
+    // };
+    // xhr.send(myJSON);
 }
 
 function onLocationError(error) {

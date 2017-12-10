@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+        <script type="text/javascript" src="js/geojson.min.js"></script>
 
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
               integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
@@ -209,6 +209,8 @@
 
 
                 $("body").on("pageshow",'#track_info', function(event, ui) {
+                    markersLayer.clearLayers();
+                    latlngs = [];
 
 
 
@@ -255,6 +257,8 @@
                     }
 
 
+                    console.log("this is latlongs from index", latlngs);
+
 
 
                     if(map === null || map === undefined)
@@ -263,10 +267,13 @@
 
                         map = L.map('map');
 
-                        var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-                        }).addTo(map);
+                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 
+                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                            maxZoom: 18,
+                            id: 'mapbox.streets',
+                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+                        }).addTo(map);
 
 
                     }
@@ -280,45 +287,19 @@
                     marker2 = L.marker(latlngs[i - 1]);
 
 
-//                    markersLayer.addLayer(marker1)
-//                    markersLayer.addLayer(marker2)
-//                    markersLayer.addLayer(path)
 
 
                     markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
 
-//                    map.addLayer(marker1);
-//                    map.addLayer(marker2);
-//
-//
-//                    map.addLayer(path);
+                    var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+                        imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
+                    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
                     path.snakeIn();
 
-
-//                    path.bindPopup("Hello world");
                 });
 
-
-
-
-
             }
-
-
-
-
-
-//            function snake() {
-//
-//                path.snakeIn();
-//            }
-
-            path.on('snakestart snake snakeend', function(ev){
-                console.log(ev.type);
-            });
-
-
-
 
         </script>
 
