@@ -24,24 +24,10 @@ var total_km;
 
 
 
-function distance(lat1, lon1, lat2, lon2, unit) {
-    var radlat1 = Math.PI * lat1/180
-    var radlat2 = Math.PI * lat2/180
-    var theta = lon1-lon2
-    var radtheta = Math.PI * theta/180
-    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    dist = Math.acos(dist)
-    dist = dist * 180/Math.PI
-    dist = dist * 60 * 1.1515
-    if (unit=="K") { dist = dist * 1.609344 }
-    if (unit=="N") { dist = dist * 0.8684 }
-    return dist
-}
-
 
 function gps_distance(lat1, lon1, lat2, lon2)
 {
-    // http://www.movable-type.co.uk/scripts/latlong.html
+    // Algorithm from http://www.movable-type.co.uk/scripts/latlong.html
     var R = 6371; // km
     var dLat = (lat2-lat1) * (Math.PI / 180);
     var dLon = (lon2-lon1) * (Math.PI / 180);
@@ -98,30 +84,36 @@ function displayMap(getLatLongId) {
 
 
         // makeBasicMap();
+        var time, dist;
 
-        // Get all the GPS data for the specific workout
-        var data = window.localStorage.getItem(key);
 
 
         for (var i = 0; i < getLatLongId.features.length; i++) {
             if (getLatLongId.features[i].properties.TrackID === key) {
                 getKey = getLatLongId.features[i].geometry.coordinates
 
+
+
+                time  = getLatLongId.features[i].properties.time;
+                dist = getLatLongId.features[i].properties.distance;
                 //display time and distance
-                tracks_info.innerHTML = "Time:"+getLatLongId.features[i].properties.time + "   " +"Travelled Distance " + getLatLongId.features[i].properties.distance   ;
+                tracks_info.innerHTML = "Time:"+time + "   " +"Travelled Distance " + dist   ;
             }
 
 
         }
 
 
-        console.log("getkey huuuu I got key And Ill get good grade too",getKey);
+
+
+
+        //console.log("getkey huuuu I got key And Ill get good grade too",getKey);
 
 
         console.log("dist",gps_distance(getKey[0][0],getKey[0][1],getKey[getKey.length-1][0],getKey[getKey.length-1][1]))
 
         // Turn the stringified GPS data back into a JS object
-        data = JSON.parse(data);
+
 
 
 
@@ -272,7 +264,57 @@ function recordLocation() {
 
 
 
-    $("body").on('click','#startTracking_start', function(){
+    // noinspection JSAnnotator
+    var seconds = 00;
+    // noinspection JSAnnotator
+    var tens = 00;
+    var min = 0;
+
+    var appendTens = document.getElementById("tens")
+    var appendSeconds = document.getElementById("seconds")
+    var appendMin = document.getElementById("minutes")
+    // var buttonStart = document.getElementById('startTracking_start');
+    var buttonStop = document.getElementById('startTracking_stop');
+    var Interval;
+
+
+    function startTimer() {
+        tens++;
+        if (tens < 9) {
+            appendTens.innerHTML = "0" + tens;
+        }
+
+        if (tens > 9) {
+            appendTens.innerHTML = tens;
+
+
+        }
+
+        if (tens > 99) {
+            console.log("seconds");
+
+            seconds++;
+            appendSeconds.innerHTML = "0" + seconds;
+            tens = 0;
+            appendTens.innerHTML = "0" + 0;
+        }
+
+        if (seconds > 9) {
+            appendSeconds.innerHTML = seconds;
+        }
+
+        if (seconds > 59) {
+
+            min++;
+            appendMin.innerHTML = min
+
+            seconds = 0;
+        }
+
+    }
+
+
+    $("body").on('click', '#startTracking_start', function () {
 
         // Tidy up the UI
         track_id = $("#track_id").val();
@@ -283,56 +325,50 @@ function recordLocation() {
         $("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
 
 
+        clearInterval(Interval);
+        Interval = setInterval(startTimer, 10);
+
+
     });
 
 
-
-    $("body").on("pageshow",'#startTracking', function(event, ui) {
+    $("body").on("pageshow", '#startTracking', function (event, ui) {
 
         // onSuccess Callback
         //   This method accepts a `Position` object, which contains
         //   the current GPS coordinates
         //
-        var onSuccess = function(position) {
-            // alert('Latitude: '          + position.coords.latitude          + '\n' +
-            //     'Longitude: '         + position.coords.longitude         + '\n' +
-            //     'Altitude: '          + position.coords.altitude          + '\n' +
-            //     'Accuracy: '          + position.coords.accuracy          + '\n' +
-            //     'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-            //     'Heading: '           + position.coords.heading           + '\n' +
-            //     'Speed: '             + position.coords.speed             + '\n' +
-            //     'Timestamp: '         + position.timestamp                + '\n');
+        var onSuccess = function (position) {
 
-            tracking_data.push(position.coords.latitude,position.coords.longitude);
-            console.log("this is tracking",tracking_data);
+
+            tracking_data.push(position.coords.latitude, position.coords.longitude);
+            console.log("this is tracking", tracking_data);
         };
 
         // onError Callback receives a PositionError object
         //
         function onError(error) {
-            alert('code: '    + error.code    + '\n' +
+            alert('code: ' + error.code + '\n' +
                 'message: ' + error.message + '\n');
         }
 
         // Options: throw an error if no update is received every 30 seconds.
         //
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 ,  enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, {
+            timeout: 30000,
+            enableHighAccuracy: true
+        });
 
 
     });
 
 
-
-}
-
+    $("body").on('click', '#startTracking_stop', function () {
 
 
 
-
-function stopdata()
-{
-    $("body").on('click','#startTracking_stop', function()
-    {
+        console.log("this is value", min);
+        console.log("this is value", seconds);
 
         // Stop tracking the user
         navigator.geolocation.clearWatch(watch_id);
@@ -340,19 +376,27 @@ function stopdata()
         // Save the tracking data
         window.localStorage.setItem(track_id, JSON.stringify(tracking_data));
 
-            //console.log(  window.localStorage.setItem(track_id, JSON.stringify(tracking_data)));
-        console.log("this is other tracking ",tracking_data)
+        //console.log(window.localStorage.setItem(track_id, JSON.stringify(tracking_data)));
+        console.log("this is other tracking ", tracking_data)
         // Reset watch_id and tracking_data
         var watch_id = null;
 
+        var dist = "0";
+
+
+        if(tracking_data[0][0], tracking_data[0][1], tracking_data[tracking_data.length - 1][0], tracking_data[tracking_data.length - 1][1]=== undefined)
+        {
+            dist = "NoDist"
+        }
+        else
+        {
+            dist = gps_distance(tracking_data[0][0], tracking_data[0][1], tracking_data[tracking_data.length - 1][0], tracking_data[tracking_data.length - 1][1])
+        }
 
 
 
-
-
-        console.log("this is data",tracking_data)
         var URL = "http://127.0.0.1:8000/listloc/";
-        var obj2= {
+        var obj2 = {
             "type": "Feature",
             "geometry": {
                 "type": "LineString",
@@ -363,23 +407,25 @@ function stopdata()
 
             },
             "properties": {
-                "TrackID": track_id
+                "TrackID": track_id,
+                "distance": dist,
+                "time": min +":"+ seconds
             }
         };
 
 
         //alert(obj2)
         var myJSON = JSON.stringify(obj2);
-        console.log("woooork",myJSON);
+        console.log("woooork", myJSON);
 
         //Store Geolocation to Django
         var xhr = new XMLHttpRequest();
         var url = URL;
 
-        xhr.open("POST",url, true);
+        xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-type", "application/json");
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             console.log(xhr.responseText)
         };
         xhr.send(myJSON);
@@ -389,14 +435,25 @@ function stopdata()
         $("#track_id").val("").show();
 
         $("#startTracking_status").html("Stopped tracking workout: <strong>" + track_id + "</strong>");
+
+
+
+        clearInterval(Interval);
+
+        tens = "00";
+        seconds = "00";
+
+
+        appendTens.innerHTML = tens;
+        appendSeconds.innerHTML = seconds;
+
     });
 
+
+
+
+
 }
-
-
-
-
-
 
 
 function populateHistory()
@@ -435,17 +492,8 @@ function populateHistory()
                    $("#history_tracklist").listview('refresh');
 
 
-
                    //displayMap
-
-
                    displayMap(response);
-
-
-
-
-
-
                } else {
                    console.log('Error ' + xhr.statusText);
                }
@@ -459,7 +507,6 @@ function populateHistory()
 
 
 
-
 function onLocationError(error) {
     console.log('code: ' + error.code + '\n' +
         'message: ' + error.message + '\n');
@@ -467,7 +514,7 @@ function onLocationError(error) {
 
 
 
-var mymap;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -482,109 +529,14 @@ var app = {
     onDeviceReady: function() {
         // getPoinLocation();
         recordLocation();
-        stopdata();
         populateHistory();
 
         navigator.geolocation.getCurrentPosition(getAndSendMylocation, onLocationError,);
 
-
-
-
     },
-
-
 };
 
 
-
-window.onload = function () {
-
-    // noinspection JSAnnotator
-    var seconds = 00;
-    // noinspection JSAnnotator
-    var tens = 00;
-    var min= 0;
-
-    var appendTens = document.getElementById("tens")
-    var appendSeconds = document.getElementById("seconds")
-    var appendMin = document.getElementById("minutes")
-    var buttonStart = document.getElementById('startTracking_start');
-    var buttonStop = document.getElementById('startTracking_stop');
-    var buttonReset = document.getElementById('button-reset');
-    var Interval ;
-
-    buttonStart.onclick = function() {
-
-        clearInterval(Interval);
-        Interval = setInterval(startTimer, 10);
-    }
-
-    buttonStop.onclick = function() {
-        clearInterval(Interval);
-
-        var gettens;
-        var getsecond;
-
-        tens = "00";
-        seconds = "00";
-
-
-
-        console.log("this is value", gettens);
-        appendTens.innerHTML = tens;
-        appendSeconds.innerHTML = seconds;
-    }
-
-
-    buttonReset.onclick = function() {
-        clearInterval(Interval);
-        tens = "00";
-        seconds = "00";
-        appendTens.innerHTML = tens;
-        appendSeconds.innerHTML = seconds;
-    }
-
-
-
-    function startTimer () {
-        tens++;
-        if(tens < 9){
-            appendTens.innerHTML = "0" + tens;
-        }
-
-        if (tens > 9){
-            appendTens.innerHTML = tens;
-
-
-
-        }
-
-        if (tens > 99) {
-            console.log("seconds");
-
-            seconds++;
-            appendSeconds.innerHTML = "0" + seconds;
-            tens = 0;
-            appendTens.innerHTML = "0" + 0;
-        }
-
-        if (seconds > 9){
-            appendSeconds.innerHTML = seconds;
-        }
-
-        if(seconds >59)
-        {
-
-            min++;
-            appendMin.innerHTML = min
-
-            seconds = 0;
-        }
-
-    }
-
-
-}
 
 
 app.initialize();

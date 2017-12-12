@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5439f893-a766-4787-8c2e-dbb09161eaf8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/index.html" afterPath="$PROJECT_DIR$/platforms/browser/www/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/js/geolocation.js" afterPath="$PROJECT_DIR$/platforms/browser/www/js/geolocation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/geolocation.js" afterPath="$PROJECT_DIR$/www/js/geolocation.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,10 +21,10 @@
       <file leaf-file-name="geolocation.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="117" column="80" lean-forward="true" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="80" />
+            <state relative-caret-position="528">
+              <caret line="411" column="31" lean-forward="true" selection-start-line="411" selection-start-column="31" selection-end-line="411" selection-end-column="31" />
               <folding>
-                <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+                <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
               </folding>
             </state>
           </provider>
@@ -35,8 +33,8 @@
       <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+            <state relative-caret-position="0">
+              <caret line="0" column="4" lean-forward="true" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -45,8 +43,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+            <state relative-caret-position="245">
+              <caret line="119" column="28" lean-forward="false" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -70,6 +68,9 @@
       <find>POST</find>
       <find>displayMap</find>
       <find>dist</find>
+      <find>Stop</find>
+      <find>stop</find>
+      <find>tracking data</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -429,12 +430,12 @@
       <workItem from="1512569013132" duration="13479000" />
       <workItem from="1512739603921" duration="55636000" />
       <workItem from="1512992947903" duration="20704000" />
-      <workItem from="1513070843040" duration="13574000" />
+      <workItem from="1513070843040" duration="22313000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160754000" />
+    <option name="totallyTimeSpent" value="169493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -537,7 +538,7 @@
         <state relative-caret-position="105">
           <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -547,33 +548,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -599,7 +574,33 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -642,7 +643,7 @@
         <state relative-caret-position="399">
           <caret line="28" column="20" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="20" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -652,7 +653,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -678,7 +679,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -721,7 +722,7 @@
         <state relative-caret-position="399">
           <caret line="28" column="20" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="20" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -731,33 +732,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -783,7 +758,33 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
@@ -839,28 +840,28 @@
     <entry file="file://$PROJECT_DIR$/node_modules/geojson-tools/src/geojson-tools.js" />
     <entry file="file://$PROJECT_DIR$/www/js/geojson-tools/src/geojson-tools.js" />
     <entry file="file://$PROJECT_DIR$/www/js/geojson-tools/index.js" />
-    <entry file="file://$PROJECT_DIR$/www/css/index.css">
+    <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        <state relative-caret-position="245">
+          <caret line="119" column="28" lean-forward="false" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
+    <entry file="file://$PROJECT_DIR$/www/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="true" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/geolocation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="117" column="80" lean-forward="true" selection-start-line="117" selection-start-column="8" selection-end-line="117" selection-end-column="80" />
+        <state relative-caret-position="528">
+          <caret line="411" column="31" lean-forward="true" selection-start-line="411" selection-start-column="31" selection-end-line="411" selection-end-column="31" />
           <folding>
-            <marker date="1513088271169" expanded="true" signature="5418:5424" ph="©" />
+            <marker date="1513099396632" expanded="true" signature="4881:4887" ph="©" />
           </folding>
         </state>
       </provider>
