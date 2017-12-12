@@ -1,0 +1,58 @@
+{
+  "_from": "geojson-tools@^0.2.2",
+  "_id": "geojson-tools@0.2.2",
+  "_inBundle": false,
+  "_integrity": "sha1-s9PbkuluSRCoObJzthrXCld8s/s=",
+  "_location": "/geojson-tools",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "geojson-tools@^0.2.2",
+    "name": "geojson-tools",
+    "escapedName": "geojson-tools",
+    "rawSpec": "^0.2.2",
+    "saveSpec": null,
+    "fetchSpec": "^0.2.2"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/geojson-tools/-/geojson-tools-0.2.2.tgz",
+  "_shasum": "b3d3db92e96e4910a839b273b61ad70a577cb3fb",
+  "_spec": "geojson-tools@^0.2.2",
+  "_where": "C:\\WebMapping\\Mylocation",
+  "author": {
+    "name": "Neville Dipale",
+    "email": "nevilledips@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/rwt-to/GeoJSON-Tools/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "deprecated": false,
+  "description": "Tools for working with location data, using the GeoJSON specification",
+  "devDependencies": {
+    "chai": "2.1.*",
+    "mocha": "2.2.*"
+  },
+  "homepage": "https://github.com/rwt-to/GeoJSON-Tools",
+  "keywords": [
+    "geojson"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "geojson-tools",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rwt-to/GeoJSON-Tools.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "version": "0.2.2"
+}

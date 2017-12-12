@@ -1,6 +1,18 @@
 #map
-
 { height: 180px;
-         width: 500px;
 
+    width: 500px;
+
+}
+
+#maptrack
+{
+    height: 180px;
+
+    width: 500px;
+}
+
+
+#seconds, #tens, #minutes{
+    font-size:2em;
 }

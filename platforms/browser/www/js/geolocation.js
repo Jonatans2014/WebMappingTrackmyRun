@@ -12,41 +12,90 @@ var getCoors;
 
 
 
+// Called when capture operation is finished
 //
-// var onMapWatchSuccess = function (position) {
+function captureSuccess(mediaFiles) {
+    var i, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        uploadFile(mediaFiles[i]);
+
+        alert(mediaFiles[i]);
+    }
+}
+
+// Called if something bad happens.
 //
-//     var updatedLatitude = position.coords.latitude;
-//     var updatedLongitude = position.coords.longitude;
+function captureError(error) {
+    var msg = 'An error occurred during capture: ' + error.code;
+    navigator.notification.alert(msg, null, 'Uh oh!');
+}
+
+// A button will call this function
 //
-//     if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
-//
-//         Latitude = updatedLatitude;
-//         Longitude = updatedLongitude;
-//
-//         getMap(updatedLatitude, updatedLongitude);
-//     }
-// }
+function captureImage() {
+    // Launch device camera application,
+    // allowing user to capture up to 2 images
+    navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
+}
 
 
+
+
+// Upload files to server
+function uploadFile(mediaFile) {
+    var ft = new FileTransfer(),
+        path = mediaFile.fullPath,
+        name = mediaFile.name;
+
+
+    console.log(mediaFile);
+
+    ft.upload(path,
+        "http://my.domain.com/upload.php",
+        function(result) {
+            console.log('Upload success: ' + result.responseCode);
+            console.log(result.bytesSent + ' bytes sent');
+        },
+        function(error) {
+            console.log('Error uploading file ' + path + ': ' + error.code);
+        },
+        { fileName: name });
+}
 
 function recordLocation() {
 
 
+
     $("body").on('click','#startTracking_start', function(){
+
+        // Tidy up the UI
+        track_id = $("#track_id").val();
+
+
+        $("#track_id").hide();
+
+        $("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
+
+
+    });
+
+
+
+    $("body").on("pageshow",'#startTracking', function(event, ui) {
 
         // onSuccess Callback
         //   This method accepts a `Position` object, which contains
         //   the current GPS coordinates
         //
         var onSuccess = function(position) {
-            alert('Latitude: '          + position.coords.latitude          + '\n' +
-                'Longitude: '         + position.coords.longitude         + '\n' +
-                'Altitude: '          + position.coords.altitude          + '\n' +
-                'Accuracy: '          + position.coords.accuracy          + '\n' +
-                'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-                'Heading: '           + position.coords.heading           + '\n' +
-                'Speed: '             + position.coords.speed             + '\n' +
-                'Timestamp: '         + position.timestamp                + '\n');
+            // alert('Latitude: '          + position.coords.latitude          + '\n' +
+            //     'Longitude: '         + position.coords.longitude         + '\n' +
+            //     'Altitude: '          + position.coords.altitude          + '\n' +
+            //     'Accuracy: '          + position.coords.accuracy          + '\n' +
+            //     'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+            //     'Heading: '           + position.coords.heading           + '\n' +
+            //     'Speed: '             + position.coords.speed             + '\n' +
+            //     'Timestamp: '         + position.timestamp                + '\n');
 
             tracking_data.push(position.coords.latitude,position.coords.longitude);
             console.log("this is tracking",tracking_data);
@@ -62,36 +111,16 @@ function recordLocation() {
         // Options: throw an error if no update is received every 30 seconds.
         //
         var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 ,  enableHighAccuracy: true });
-        // // Start tracking the User
-        // watch_id = navigator.geolocation.watchPosition(
-        //
-        //     // Success
-        //     function(position){
-        //         tracking_data.push(position);
-        //     },
-        //
-        //     // Error
-        //     function(error){
-        //         console.log(error);
-        //     },
-        //
-        //     // Settings
-        //     { frequency: 3000, enableHighAccuracy: true },
-        //     console.log(tracking_data )
-        //
-        //     );
-
-        // Tidy up the UI
-        track_id = $("#track_id").val();
-
-
-        $("#track_id").hide();
-
-        $("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
 
 
     });
+
+
+
 }
+
+
+
 
 
 function stopdata()
@@ -122,26 +151,8 @@ function stopdata()
             "geometry": {
                 "type": "LineString",
                 "coordinates": [
-                    [
-                        53.35835351889316,
-                        -6.349256515895831
-                    ],
-                    [
-                        53.35440905264652,
-                        -6.3446645747171715
-                    ],
-                    [
-                        53.353743067779305,
-                        -6.334407806298259
-                    ],
-                    [
-                        53.35499818443175,
-                        -6.33063125600529
-                    ],
-                    [
-                        53.358737700640255,
-                        -6.329944610497478
-                    ]
+                    tracking_data,
+                    tracking_data
                 ]
 
             },
@@ -151,7 +162,7 @@ function stopdata()
         };
 
 
-        alert(obj2)
+        //alert(obj2)
         var myJSON = JSON.stringify(obj2);
         console.log("woooork",myJSON);
 
@@ -168,36 +179,33 @@ function stopdata()
         xhr.send(myJSON);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Tidy up the UI
         $("#track_id").val("").show();
 
         $("#startTracking_status").html("Stopped tracking workout: <strong>" + track_id + "</strong>");
-
-
-
-
     });
 
 }
+
+
+
+function gps_distance(lat1, lon1, lat2, lon2)
+{
+    // http://www.movable-type.co.uk/scripts/latlong.html
+    var R = 6371; // km
+    var dLat = (lat2-lat1) * (Math.PI / 180);
+    var dLon = (lon2-lon1) * (Math.PI / 180);
+    var lat1 = lat1 * (Math.PI / 180);
+    var lat2 = lat2 * (Math.PI / 180);
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+
+    return d;
+}
+
 
 
 
@@ -243,6 +251,12 @@ function populateHistory()
 
 
                    displayMap(response);
+
+
+
+
+
+
                } else {
                    console.log('Error ' + xhr.statusText);
                }
@@ -254,50 +268,15 @@ function populateHistory()
     });
 }
 
-function getMyLocationCallBack() {
 
-    navigator.geolocation.getCurrentPosition
-    (getAndSendMylocation, onLocationError, { enableHighAccuracy: true });
-}
 
-//function to get phone location and send to django
-var getAndSendMylocation = function (position) {
-
-    // Latitude = position.coords.latitude;
-    // Longitude = position.coords.longitude;
-    // var Locationof = "JOhn";
-    // var URL = "http://127.0.0.1:8000/listloc/";
-    // var obj2= {
-    //     "name": Locationof,
-    //     "point": {
-    //         "type": "Point",
-    //         "coordinates": [
-    //             Latitude,
-    //             Longitude
-    //         ]
-    //     }
-    // }
-    //
-    // var myJSON = JSON.stringify(obj2);
-    // console.log("woooork",myJSON);
-    //
-    // //Store Geolocation to Django
-    // var xhr = new XMLHttpRequest();
-    // var url = URL;
-    //
-    // xhr.open("POST",url, true);
-    // xhr.setRequestHeader("Content-type", "application/json");
-    //
-    // xhr.onreadystatechange = function() {
-    //     console.log(xhr.responseText)
-    // };
-    // xhr.send(myJSON);
-}
 
 function onLocationError(error) {
     console.log('code: ' + error.code + '\n' +
         'message: ' + error.message + '\n');
 }
+
+
 
 var mymap;
 var app = {
@@ -321,63 +300,104 @@ var app = {
 
 
 
+
     },
 
 
 };
 
-// retrieve locations from Django Db
-function getPoinLocation() {
-
-    var response;
-    var URL= "http://127.0.0.1:8000/listloc/";
-    const xhr = new XMLHttpRequest();
 
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                response = JSON.parse(xhr.responseText);
+window.onload = function () {
 
-                makeBasicMap(response.features[0].geometry)
-                for(i =0; i <response.features.length; i ++ )
-                {
-                    console.log(response.features[i].geometry);
-                    console.log("this is i",i)
+    // noinspection JSAnnotator
+    var seconds = 00;
+    // noinspection JSAnnotator
+    var tens = 00;
+    var min= 0;
 
-                    //mark locations that I have been.
-                    marker = new L.marker([response.features[i].geometry.coordinates[0],response.features[i].geometry.coordinates[1]]).addTo(mymap);
+    var appendTens = document.getElementById("tens")
+    var appendSeconds = document.getElementById("seconds")
+    var appendMin = document.getElementById("minutes")
+    var buttonStart = document.getElementById('startTracking_start');
+    var buttonStop = document.getElementById('startTracking_stop');
+    var buttonReset = document.getElementById('button-reset');
+    var Interval ;
 
-                }
-            } else {
-                console.log('Error ' + xhr.statusText);
-            }
-        }
+    buttonStart.onclick = function() {
+
+        clearInterval(Interval);
+        Interval = setInterval(startTimer, 10);
     }
-    xhr.open("GET", URL);
-    xhr.send();
 
+    buttonStop.onclick = function() {
+        clearInterval(Interval);
+
+        var gettens;
+        var getsecond;
+
+        tens = "00";
+        seconds = "00";
+
+
+
+        console.log("this is value", gettens);
+        appendTens.innerHTML = tens;
+        appendSeconds.innerHTML = seconds;
+    }
+
+
+    buttonReset.onclick = function() {
+        clearInterval(Interval);
+        tens = "00";
+        seconds = "00";
+        appendTens.innerHTML = tens;
+        appendSeconds.innerHTML = seconds;
+    }
+
+
+
+    function startTimer () {
+        tens++;
+        if(tens < 9){
+            appendTens.innerHTML = "0" + tens;
+        }
+
+        if (tens > 9){
+            appendTens.innerHTML = tens;
+
+
+
+        }
+
+        if (tens > 99) {
+            console.log("seconds");
+
+            seconds++;
+            appendSeconds.innerHTML = "0" + seconds;
+            tens = 0;
+            appendTens.innerHTML = "0" + 0;
+        }
+
+        if (seconds > 9){
+            appendSeconds.innerHTML = seconds;
+        }
+
+        if(seconds >59)
+        {
+
+            min++;
+            appendMin.innerHTML = min
+
+            seconds = 0;
+        }
+
+    }
 
 
 }
 
-// render a map
-function makeBasicMap(getLat) {
 
-    console.log("this isssss",getLat);
-    getlatLon = L.latLng(getLat.coordinates[0],getLat.coordinates[1]);
-    mymap = L.map('mapid').setView(getlatLon, 5);
-
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
-    }).addTo(mymap);
-
-
-}
 app.initialize();
 
 

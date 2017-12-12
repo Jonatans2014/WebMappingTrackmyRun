@@ -56,6 +56,11 @@
         <script  src="js/L.Polyline.SnakeAnim.js"></script>
 
         <link rel="stylesheet" href="css/index.css" />
+
+
+
+
+
         <title>TrackMyRun</title>
     </head>
 <body>
@@ -109,11 +114,10 @@
             <input type="text" name="track_id" id="track_id" placeholder="Workout ID/Name"/>
         </div>
 
-        <button data-role="button" id="startTracking_start">Start Tracking</button>
-        <button data-role="button" id="startTracking_stop">Stop Tracking</button>
+        <button data-role="button"  id="startTracking_start" >Start Tracking</button>
+        <button data-role="button" id="startTracking_stop" >Stop Tracking</button>
 
-        <p id="startTracking_info"></p>
-
+        <p><span id="minutes">00</span>:<span id="seconds">00</span>:<span id="tens">00</span></p>
 
     </div>
 
@@ -166,7 +170,7 @@
 
         <div id="map"></div>
 
-        <p><button onclick='snake()'>SNAKE! IT'S A SNAKE!</button></p></div>
+
 
 
     </div>
@@ -180,20 +184,29 @@
 
 
 
+
+
 <!-- /rest of the code needs to be here so the code can work-->
         <script>
 
 
+
+
+
+
+
             var path;
             var map;
-            var latlngs = [];
+            var latlngs = [53.28429039553018, -6.375512123140652];
             var i;
             var marker1;
             var marker2;
             var markersLayer = L.layerGroup();
+            var total_km;
+
+
 
             function displayMap(getLatLongId) {
-
 
 
                 var getKey
@@ -254,50 +267,123 @@
 
                     for ( i = 0; i < getKey.length; i++) {
                         latlngs.push(new L.LatLng(getKey[i][0], getKey[i][1]));
-                    }
-
-
-                    console.log("this is latlongs from index", latlngs);
-
-
-
-                    if(map === null || map === undefined)
-                    {
-
-
-                        map = L.map('map');
-
-                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-
-                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                            maxZoom: 18,
-                            id: 'mapbox.streets',
-                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
-                        }).addTo(map);
 
 
                     }
+
+
+
+
+
+//
+//                    for(i = 0; i < getKey.length; i++){
+//
+//                        if(i == (getKey.length - 1)){
+//                            break;
+//                        }
+//
+//
+//
+//                        console.log("this will work2",getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
+//
+//                        total_km += gps_distance(getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
+//
+//
+//
+//                    }
+//
+//                    console.log("this will work", total_km_rounded = total_km.toFixed(2));
+//
+
+
+                    //  console.log("this is latlongs from index", latlngs);
+
+
+
+
+
+                    RenderMap('map',latlngs);
+
+//                    if(map === null || map === undefined)
+//                    {
+//
+//
+//                        map = L.map('map');
+//
+//                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//
+//                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//                            maxZoom: 18,
+//                            id: 'mapbox.streets',
+//                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+//                        }).addTo(map);
+//
+//
+//                    }
 
                     path = L.polyline(latlngs);
-
-                    map.fitBounds(L.latLngBounds(latlngs));
-
-
                     marker1 = L.marker(latlngs[0]);
                     marker2 = L.marker(latlngs[i - 1]);
 
 
 
 
+// Calculate the total distance travelled
+
+
+
+                    //   create an image
+//                    var greenIcon = L.icon({
+//                        iconUrl:  'img/cameraIco.png',
+//
+//
+//                        iconSize:     [20, 95], // size of the icon
+//
+//                        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//
+//                        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+//                    });
+//
+//                    L.marker([53.35440905264652, -6.3446645747171715], {icon: greenIcon}).addTo(map);
                     markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
 
-                    var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-                        imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
-                    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+
 
                     path.snakeIn();
 
                 });
+
+            }
+
+
+
+            function RenderMap(getMapId,fitbound)
+            {
+
+
+
+
+
+                if(map === null || map === undefined)
+                {
+
+
+                    map = L.map(getMapId);
+
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox.streets',
+                        accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+                    }).addTo(map);
+
+
+                }
+
+
+                console.log("LatLong inside renderMap",latlngs);
+                map.fitBounds(L.latLngBounds(fitbound));
 
             }
 

@@ -31,42 +31,368 @@
 
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">-->
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+        <script type="text/javascript" src="js/geojson.min.js"></script>
 
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
               integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
               crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-                integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-                crossorigin=""></script>
+
+
+
+        <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+              integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+              crossorigin=""></script>-->
+
+
+      <link href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" rel="stylesheet" type="text/css" />
+      <!-- <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script> -->
+        <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet-src.js"></script>
+
+        <script  src="js/L.Polyline.SnakeAnim.js"></script>
 
         <link rel="stylesheet" href="css/index.css" />
-        <title>Hello World</title>
+        <title>TrackMyRun</title>
     </head>
+<body>
+<!-- Start of Home page -->
+<div data-role="page" id="home">
 
-    <div data-role="page">
+    <div data-role="header">
 
-        <div data-role="header">
-            <h1>Page Title</h1>
-        </div><!-- /header -->
+        <h1>Home</h1>
 
-        <div role="main" class="ui-content">
-            <p>Page content goes here.</p>
-            <div id="mapid"></div>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <p>Welcome to the <em>ExerciseTracker</em> app. By clicking <em>Track Workout</em> you can record your workouts using the GPS feature on your phone. Learn how to build this app by reading <em>mobile.tutsplus.com</em>.</p>
+
+        <button id="home_network_button" data-icon="check">Internet Access Enabled</button>
+        <button id="home_clearstorage_button">Clear local storage</button>
+        <button id="home_seedgps_button">Load Seed GPS Data</button>
+    </div>
 
 
-        </div><!-- /content -->
+</div>
+<!-- End of Home page -->
 
-        <div data-role="footer">
-            <h4>Page Footer</h4>
-        </div><!-- /footer -->
-    </div><!-- /page -->
+<!-- Start of Trackwork Out page -->
+<div data-role="page" id="startTracking">
+
+    <div data-role="header">
+        <h1>Track Workout</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <p id="startTracking_status"></p>
+        <div data-role="fieldcontain" class="ui-hide-label">
+            <label for="track_id">Track ID/Name:</label>
+            <input type="text" name="track_id" id="track_id" placeholder="Workout ID/Name"/>
+        </div>
+
+        <button data-role="button" id="startTracking_start">Start Tracking</button>
+        <button data-role="button" id="startTracking_stop">Stop Tracking</button>
+        <button onclick="captureImage();">Capture Image</button> <br>
+
+
+
+
+
+        <div id="demo"></div>
+
+        <table id="laps"></table>
+        <!--<p id="startTracking_info"></p>-->
+
+
+
+
+
+    </div>
+
+
+</div><!-- /page -->
+
+<!-- Start of the History page -->
+<div data-role="page" id="history">
+
+    <div data-role="header">
+        <h1>History</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <p id="tracks_recorded"></p>
+
+        <ul data-role="listview" id="history_tracklist">
+
+        </ul>
+    </div>
+
+
+</div><!-- /page -->
+
+<!-- Track Info page -->
+<div data-role="page" id="track_info">
+
+    <div data-role="header">
+        <h1>Viewing Single Workout</h1>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">
+        <p id="track_info_info"></p>
+
+        <div id="map"></div>
+
+
+
+
+    </div>
+
+
+</div><!-- /page -->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/geolocation.js"></script>
-        
+
+        <script  type="text/javascript" src="js/route.js"></script>
+
+
+
+<!-- /rest of the code needs to be here so the code can work-->
+        <script>
+
+
+            var path;
+            var map;
+            var latlngs = [53.28429039553018, -6.375512123140652];
+            var i;
+            var marker1;
+            var marker2;
+            var markersLayer = L.layerGroup();
+
+
+
+
+
+
+
+            function displayMap(getLatLongId) {
+
+
+                var getKey
+
+                $("body").on('click','#history_tracklist li a', function()
+                {
+                    markersLayer.clearLayers();
+                    latlngs = [];
+
+                    $("#track_info").attr("track_id", $(this).text());
+                    console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
+                });
+
+
+                $("body").on("pageshow",'#track_info', function(event, ui) {
+                    markersLayer.clearLayers();
+                    latlngs = [];
+
+
+
+                    // When the user views the Track Info page
+
+                    // Find the track_id of the workout they are viewing
+                    var key = $(this).attr("track_id");
+                    console.log("this is key ", getLatLongId)
+                    // Update the Track Info page header to the track_id
+                    $("#track_info div[data-role=header] h1").text(key);
+
+
+                    // makeBasicMap();
+
+                    // Get all the GPS data for the specific workout
+                    var data = window.localStorage.getItem(key);
+
+
+                    for (var i = 0; i < getLatLongId.features.length; i++) {
+                        if (getLatLongId.features[i].properties.TrackID === key) {
+                            getKey = getLatLongId.features[i].geometry.coordinates
+                        }
+
+
+                    }
+
+
+                    for(i = 0; i < getKey.length; i ++)
+                    {
+                        console.log(getKey[i]);
+                    }
+
+
+                    console.log("getkey huuuu I got key And Ill get good grade too",getKey);
+
+
+                    // Turn the stringified GPS data back into a JS object
+                    data = JSON.parse(data);
+
+
+
+                    for ( i = 0; i < getKey.length; i++) {
+                        latlngs.push(new L.LatLng(getKey[i][0], getKey[i][1]));
+
+
+
+
+                    }
+
+
+
+
+                    var total_km = 0;
+
+                    for(i = 0; i < getKey.length; i++){
+
+                        if(i == (getKey.length - 1)){
+                            break;
+                        }
+
+
+
+                        console.log("this will work2",getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
+
+                        total_km += gps_distance(getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
+
+
+
+                    }
+
+                    console.log("this will work", total_km_rounded = total_km.toFixed(2));
+
+
+
+                    //  console.log("this is latlongs from index", latlngs);
+
+
+
+
+
+                    RenderMap('map',latlngs);
+
+//                    if(map === null || map === undefined)
+//                    {
+//
+//
+//                        map = L.map('map');
+//
+//                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//
+//                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//                            maxZoom: 18,
+//                            id: 'mapbox.streets',
+//                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+//                        }).addTo(map);
+//
+//
+//                    }
+
+                    path = L.polyline(latlngs);
+                    marker1 = L.marker(latlngs[0]);
+                    marker2 = L.marker(latlngs[i - 1]);
+
+
+
+
+// Calculate the total distance travelled
+
+
+
+                    //   create an image
+//                    var greenIcon = L.icon({
+//                        iconUrl:  'img/cameraIco.png',
+//
+//
+//                        iconSize:     [20, 95], // size of the icon
+//
+//                        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//
+//                        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+//                    });
+//
+//                    L.marker([53.35440905264652, -6.3446645747171715], {icon: greenIcon}).addTo(map);
+                    markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
+
+
+
+                    path.snakeIn();
+
+                });
+
+            }
+
+
+
+            function RenderMap(getMapId,fitbound)
+            {
+
+
+
+
+
+                if(map === null || map === undefined)
+                {
+
+
+                    map = L.map(getMapId);
+
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox.streets',
+                        accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+                    }).addTo(map);
+
+
+                }
+
+
+                console.log("LatLong inside renderMap",latlngs);
+                map.fitBounds(L.latLngBounds(fitbound));
+
+            }
+
+        </script>
+
     </body>
 </html>

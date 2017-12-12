@@ -1,4 +1,13 @@
-#mapid { height: 180px;
-         width: 500px;
+#map
+{ height: 180px;
 
+    width: 500px;
+
+}
+
+#maptrack
+{
+    height: 180px;
+
+    width: 500px;
 }
