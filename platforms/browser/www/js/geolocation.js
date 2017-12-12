@@ -12,6 +12,212 @@ var getCoors;
 
 
 
+var path;
+var map;
+var latlngs = [53.28429039553018, -6.375512123140652];
+var i;
+var marker1;
+var marker2;
+var markersLayer = L.layerGroup();
+var tracks_info = document.querySelector('#track_info_info')
+var total_km;
+
+
+
+function distance(lat1, lon1, lat2, lon2, unit) {
+    var radlat1 = Math.PI * lat1/180
+    var radlat2 = Math.PI * lat2/180
+    var theta = lon1-lon2
+    var radtheta = Math.PI * theta/180
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180/Math.PI
+    dist = dist * 60 * 1.1515
+    if (unit=="K") { dist = dist * 1.609344 }
+    if (unit=="N") { dist = dist * 0.8684 }
+    return dist
+}
+
+
+function gps_distance(lat1, lon1, lat2, lon2)
+{
+    // http://www.movable-type.co.uk/scripts/latlong.html
+    var R = 6371; // km
+    var dLat = (lat2-lat1) * (Math.PI / 180);
+    var dLon = (lon2-lon1) * (Math.PI / 180);
+    var lat1 = lat1 * (Math.PI / 180);
+    var lat2 = lat2 * (Math.PI / 180);
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+
+    return d;
+}
+
+
+
+function displayMap(getLatLongId) {
+
+
+    var getKey
+
+    $("body").on('click','#history_tracklist li a', function()
+    {
+        markersLayer.clearLayers();
+        latlngs = [];
+
+        $("#track_info").attr("track_id", $(this).text());
+        console.log("history Track",$("#track_info").attr("track_id", $(this).text()));
+    });
+
+
+    $("body").on("pageshow",'#track_info', function(event, ui) {
+        markersLayer.clearLayers();
+        latlngs = [];
+        //display time
+
+        console.log("hey",getLatLongId.features[0].properties.time)
+
+
+
+
+        //measure distance from orign and dest
+
+
+
+
+        // When the user views the Track Info page
+
+        // Find the track_id of the workout they are viewing
+        var key = $(this).attr("track_id");
+        console.log("this is key ", getLatLongId)
+        // Update the Track Info page header to the track_id
+        $("#track_info div[data-role=header] h1").text(key);
+
+
+        // makeBasicMap();
+
+        // Get all the GPS data for the specific workout
+        var data = window.localStorage.getItem(key);
+
+
+        for (var i = 0; i < getLatLongId.features.length; i++) {
+            if (getLatLongId.features[i].properties.TrackID === key) {
+                getKey = getLatLongId.features[i].geometry.coordinates
+
+                //display time and distance
+                tracks_info.innerHTML = "Time:"+getLatLongId.features[i].properties.time + "   " +"Travelled Distance" + getLatLongId.features[i].properties.distance   ;
+            }
+
+
+        }
+
+
+        console.log("getkey huuuu I got key And Ill get good grade too",getKey);
+
+
+        console.log("dist",gps_distance(getKey[0][0],getKey[0][1],getKey[getKey.length-1][0],getKey[getKey.length-1][1]))
+
+        // Turn the stringified GPS data back into a JS object
+        data = JSON.parse(data);
+
+
+
+        for ( i = 0; i < getKey.length; i++) {
+            latlngs.push(new L.LatLng(getKey[i][0], getKey[i][1]));
+        }
+
+
+
+
+
+        RenderMap('map',latlngs);
+
+//                    if(map === null || map === undefined)
+//                    {
+//
+//
+//                        map = L.map('map');
+//
+//                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//
+//                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//                            maxZoom: 18,
+//                            id: 'mapbox.streets',
+//                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+//                        }).addTo(map);
+//
+//
+//                    }
+
+        path = L.polyline(latlngs);
+        marker1 = L.marker(latlngs[0]);
+        marker2 = L.marker(latlngs[i - 1]);
+
+
+
+
+// Calculate the total distance travelled
+
+
+
+        //   create an image
+//                    var greenIcon = L.icon({
+//                        iconUrl:  'img/cameraIco.png',
+//
+//
+//                        iconSize:     [20, 95], // size of the icon
+//
+//                        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//
+//                        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+//                    });
+//
+//                    L.marker([53.35440905264652, -6.3446645747171715], {icon: greenIcon}).addTo(map);
+        markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
+
+
+
+        path.snakeIn();
+
+    });
+
+}
+
+
+
+function RenderMap(getMapId,fitbound)
+{
+
+
+
+
+
+    if(map === null || map === undefined)
+    {
+
+
+        map = L.map(getMapId);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
+        }).addTo(map);
+
+
+    }
+
+
+    console.log("LatLong inside renderMap",latlngs);
+    map.fitBounds(L.latLngBounds(fitbound));
+
+}
+
 // Called when capture operation is finished
 //
 function captureSuccess(mediaFiles) {
@@ -188,23 +394,6 @@ function stopdata()
 }
 
 
-
-function gps_distance(lat1, lon1, lat2, lon2)
-{
-    // http://www.movable-type.co.uk/scripts/latlong.html
-    var R = 6371; // km
-    var dLat = (lat2-lat1) * (Math.PI / 180);
-    var dLon = (lon2-lon1) * (Math.PI / 180);
-    var lat1 = lat1 * (Math.PI / 180);
-    var lat2 = lat2 * (Math.PI / 180);
-
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c;
-
-    return d;
-}
 
 
 
