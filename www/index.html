@@ -203,7 +203,7 @@
             var marker2;
             var markersLayer = L.layerGroup();
             var total_km;
-
+            var tracks_info = document.querySelector('#track_info_info')
 
 
             function displayMap(getLatLongId) {
@@ -225,6 +225,14 @@
                     markersLayer.clearLayers();
                     latlngs = [];
 
+
+
+
+                    //display time
+
+                    console.log("hey",getLatLongId.features[0].properties.time)
+
+                    tracks_info.innerHTML = "Time:"+getLatLongId.features[0].properties.time;
 
 
                     // When the user views the Track Info page
@@ -275,28 +283,29 @@
 
 
 
-//
-//                    for(i = 0; i < getKey.length; i++){
-//
-//                        if(i == (getKey.length - 1)){
-//                            break;
-//                        }
-//
-//
-//
-//                        console.log("this will work2",getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
-//
-//                        total_km += gps_distance(getKey[i][0], getKey[i][1], getKey[i+1][0], getKey[i+1][1]);
-//
-//
-//
-//                    }
-//
-//                    console.log("this will work", total_km_rounded = total_km.toFixed(2));
-//
+
+                    for(var j = 0; j < getKey.length; j++){
+
+                        if(j == (getKey.length - 1)){
+                            break;
+                        }
 
 
-                    //  console.log("this is latlongs from index", latlngs);
+
+                        console.log("this will work2",getKey[j][0], getKey[j][1], getKey[j+1][0], getKey[j+1][1]);
+
+                        total_km += gps_distance(getKey[j][0], getKey[j][1], getKey[j+1][0], getKey[j+1][1]);
+
+                        console.log(total_km);
+
+
+
+                    }
+
+
+
+
+
 
 
 

@@ -2,75 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5439f893-a766-4787-8c2e-dbb09161eaf8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/platforms/browser/www/img/cameraIco.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/cameraIco.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_CordovaLib_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_CordovaLib_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_CordovaLib_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_CordovaLib_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.3/tasks/_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/fileContent/annotation-processors.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/fileContent/fileContent.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/javaCompile/classAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/javaCompile/jarAnalysis.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/javaCompile/javaCompile.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/javaCompile/taskHistory.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/javaCompile/taskJars.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/fileHashes.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/fileSnapshots.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/jvmClassSignatures.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/taskHistory.bin" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/bundles/debug/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/bundles/debug/classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental-safeguard/debug/tag.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/res/resources-debug-androidTest.ap_" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/outputs/aar/CordovaLib-debug.aar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/platforms/android/.gradle/3.5/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/platforms/android/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gradle/buildOutputCleanup/cache.properties" afterPath="$PROJECT_DIR$/platforms/android/.gradle/buildOutputCleanup/cache.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.idea/workspace.xml" afterPath="$PROJECT_DIR$/platforms/android/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/CordovaLib.iml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/CordovaLib.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build.gradle" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/mergeDebugAndroidTestResources/merger.xml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/mergeDebugAndroidTestResources/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/packageDebugResources/merger.xml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/incremental/packageDebugResources/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/android.iml" afterPath="$PROJECT_DIR$/platforms/android/android.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/android.json" afterPath="$PROJECT_DIR$/platforms/android/android.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/css/index.css" afterPath="$PROJECT_DIR$/platforms/android/assets/www/css/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/index.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/js/geolocation.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/js/geolocation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/build.gradle" afterPath="$PROJECT_DIR$/platforms/android/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova_plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" afterPath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/browser.json" afterPath="$PROJECT_DIR$/platforms/browser/browser.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/platform_www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/browser/platform_www/cordova_plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/browser/www/cordova_plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/css/index.css" afterPath="$PROJECT_DIR$/platforms/browser/www/css/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/index.html" afterPath="$PROJECT_DIR$/platforms/browser/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/browser/www/js/geolocation.js" afterPath="$PROJECT_DIR$/platforms/browser/www/js/geolocation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/android.json" afterPath="$PROJECT_DIR$/plugins/android.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/browser.json" afterPath="$PROJECT_DIR$/plugins/browser.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/fetch.json" afterPath="$PROJECT_DIR$/plugins/fetch.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/index.css" afterPath="$PROJECT_DIR$/www/css/index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/geolocation.js" afterPath="$PROJECT_DIR$/www/js/geolocation.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -107,11 +41,11 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="296" column="0" lean-forward="true" selection-start-line="277" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
+            <state relative-caret-position="483">
+              <caret line="234" column="49" lean-forward="true" selection-start-line="234" selection-start-column="49" selection-end-line="234" selection-end-column="49" />
               <folding>
-                <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-                <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+                <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+                <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
               </folding>
             </state>
           </provider>
@@ -493,12 +427,12 @@
       <workItem from="1512569013132" duration="13479000" />
       <workItem from="1512739603921" duration="55636000" />
       <workItem from="1512992947903" duration="20704000" />
-      <workItem from="1513070843040" duration="9304000" />
+      <workItem from="1513070843040" duration="10329000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156484000" />
+    <option name="totallyTimeSpent" value="157509000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -585,8 +519,8 @@
         <state relative-caret-position="809">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -620,8 +554,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -647,8 +581,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -674,8 +608,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -694,8 +628,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -729,8 +663,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -756,8 +690,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -776,8 +710,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -811,8 +745,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -838,8 +772,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -865,8 +799,8 @@
         <state relative-caret-position="966">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
@@ -932,11 +866,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="296" column="0" lean-forward="true" selection-start-line="277" selection-start-column="0" selection-end-line="296" selection-end-column="0" />
+        <state relative-caret-position="483">
+          <caret line="234" column="49" lean-forward="true" selection-start-line="234" selection-start-column="49" selection-end-line="234" selection-end-column="49" />
           <folding>
-            <marker date="1513084042062" expanded="true" signature="10303:10309" ph="©" />
-            <marker date="1513084042062" expanded="true" signature="12114:12120" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="10436:10442" ph="©" />
+            <marker date="1513085064018" expanded="true" signature="12247:12253" ph="©" />
           </folding>
         </state>
       </provider>
