@@ -24,6 +24,38 @@ var total_km;
 
 
 
+// Get pictures by using coordinates
+
+function getPictures(latitude, longitude) {
+
+    $('#pictures').empty();
+
+    var accuracy = 1;
+
+    https://api.flickr.com/services/rest/?method=flickr.photos.geo.batchCorrectLocation&api_key=636233aa890a436890fce8798558aae9&lat=53.284&lon=-6.37&accuracy=6&format=json&auth_token=72157661536248897-b2e005316fc10f5e&api_sig=cc073f7d9fcd6a0281a1b555d5655782
+    var queryString =
+        "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=703eee1ff9326dd904521bb36ece90c2&lat="
+        + latitude + "&lon=" + longitude + "&accuracy=" +accuracy+ "&format=json&jsoncallback=?";
+
+    $.getJSON(queryString, function (results) {
+            $.each(results.photos.photo, function (index, item) {
+
+                var photoURL = "http://farm" + item.farm + ".static.flickr.com/" +
+                    item.server + "/" + item.id + "_" + item.secret + "_m.jpg";
+
+
+                console.log(photoURL);
+                $('#pictures').append($("<img />").attr("src", photoURL));
+
+
+
+            });
+        }
+    );
+
+
+
+}
 
 function gps_distance(lat1, lon1, lat2, lon2)
 {
@@ -67,13 +99,7 @@ function displayMap(getLatLongId) {
         console.log("hey",getLatLongId.features[0].properties.time)
 
 
-
-
         //measure distance from orign and dest
-
-
-
-
         // When the user views the Track Info page
 
         // Find the track_id of the workout they are viewing
@@ -86,10 +112,8 @@ function displayMap(getLatLongId) {
         // makeBasicMap();
         var time, dist;
 
-
-
         for (var i = 0; i < getLatLongId.features.length; i++) {
-            if (getLatLongId.features[i].properties.TrackID === key) {
+            if (getLatLongId.features[i].properties.trackID === key) {
                 getKey = getLatLongId.features[i].geometry.coordinates
 
 
@@ -127,22 +151,6 @@ function displayMap(getLatLongId) {
 
         RenderMap('map',latlngs);
 
-//                    if(map === null || map === undefined)
-//                    {
-//
-//
-//                        map = L.map('map');
-//
-//                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-//
-//                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-//                            maxZoom: 18,
-//                            id: 'mapbox.streets',
-//                            accessToken: 'pk.eyJ1Ijoiam9uYXRhbnMiLCJhIjoiY2o5YTV5bzl1MHk3eTJ3dDRkYnpnY3phaiJ9.e-qfndXuDLnsoYR9mJM9cA'
-//                        }).addTo(map);
-//
-//
-//                    }
 
         path = L.polyline(latlngs);
         marker1 = L.marker(latlngs[0]);
@@ -154,24 +162,7 @@ function displayMap(getLatLongId) {
 // Calculate the total distance travelled
 
 
-
-        //   create an image
-//                    var greenIcon = L.icon({
-//                        iconUrl:  'img/cameraIco.png',
-//
-//
-//                        iconSize:     [20, 95], // size of the icon
-//
-//                        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//
-//                        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-//                    });
-//
-//                    L.marker([53.35440905264652, -6.3446645747171715], {icon: greenIcon}).addTo(map);
         markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
-
-
-
         path.snakeIn();
 
     });
@@ -182,8 +173,6 @@ function displayMap(getLatLongId) {
 
 function RenderMap(getMapId,fitbound)
 {
-
-
 
 
 
@@ -208,56 +197,6 @@ function RenderMap(getMapId,fitbound)
     console.log("LatLong inside renderMap",latlngs);
     map.fitBounds(L.latLngBounds(fitbound));
 
-}
-
-// Called when capture operation is finished
-//
-function captureSuccess(mediaFiles) {
-    var i, len;
-    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-        uploadFile(mediaFiles[i]);
-
-        alert(mediaFiles[i]);
-    }
-}
-
-// Called if something bad happens.
-//
-function captureError(error) {
-    var msg = 'An error occurred during capture: ' + error.code;
-    navigator.notification.alert(msg, null, 'Uh oh!');
-}
-
-// A button will call this function
-//
-function captureImage() {
-    // Launch device camera application,
-    // allowing user to capture up to 2 images
-    navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
-}
-
-
-
-
-// Upload files to server
-function uploadFile(mediaFile) {
-    var ft = new FileTransfer(),
-        path = mediaFile.fullPath,
-        name = mediaFile.name;
-
-
-    console.log(mediaFile);
-
-    ft.upload(path,
-        "http://my.domain.com/upload.php",
-        function(result) {
-            console.log('Upload success: ' + result.responseCode);
-            console.log(result.bytesSent + ' bytes sent');
-        },
-        function(error) {
-            console.log('Error uploading file ' + path + ': ' + error.code);
-        },
-        { fileName: name });
 }
 
 function recordLocation() {
@@ -343,6 +282,8 @@ function recordLocation() {
 
             tracking_data.push(position.coords.latitude, position.coords.longitude);
             console.log("this is tracking", tracking_data);
+
+            getPictures(position.coords.latitude, position.coords.longitude);
         };
 
         // onError Callback receives a PositionError object
@@ -486,7 +427,7 @@ function populateHistory()
                    {
 
                        console.log("all coors2", getCoors);
-                       $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + response.features[i].properties.TrackID + "</a></li>");
+                       $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + response.features[i].properties.trackID + "</a></li>");
                    }
                    // refresh list
                    $("#history_tracklist").listview('refresh');
@@ -531,7 +472,7 @@ var app = {
         recordLocation();
         populateHistory();
 
-        navigator.geolocation.getCurrentPosition(getAndSendMylocation, onLocationError,);
+
 
     },
 };
