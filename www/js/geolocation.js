@@ -10,7 +10,7 @@ var response;
 var i;
 var getCoors;
 
-
+var URL = "http://jonatans.pythonanywhere.com/listloc/";
 
 var path;
 var map;
@@ -24,42 +24,11 @@ var total_km;
 
 
 
-// Get pictures by using coordinates
 
-function getPictures(latitude, longitude) {
-
-    $('#pictures').empty();
-
-    var accuracy = 1;
-
-    https://api.flickr.com/services/rest/?method=flickr.photos.geo.batchCorrectLocation&api_key=636233aa890a436890fce8798558aae9&lat=53.284&lon=-6.37&accuracy=6&format=json&auth_token=72157661536248897-b2e005316fc10f5e&api_sig=cc073f7d9fcd6a0281a1b555d5655782
-    var queryString =
-        "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=703eee1ff9326dd904521bb36ece90c2&lat="
-        + latitude + "&lon=" + longitude + "&accuracy=" +accuracy+ "&format=json&jsoncallback=?";
-
-    $.getJSON(queryString, function (results) {
-            $.each(results.photos.photo, function (index, item) {
-
-                var photoURL = "http://farm" + item.farm + ".static.flickr.com/" +
-                    item.server + "/" + item.id + "_" + item.secret + "_m.jpg";
-
-
-                console.log(photoURL);
-                $('#pictures').append($("<img />").attr("src", photoURL));
-
-
-
-            });
-        }
-    );
-
-
-
-}
-
+//algorithm to calculate the lat and long distancem, this algorittm is from  http://www.movable-type.co.uk/scripts/latlong.html
 function gps_distance(lat1, lon1, lat2, lon2)
 {
-    // Algorithm from http://www.movable-type.co.uk/scripts/latlong.html
+
     var R = 6371; // km
     var dLat = (lat2-lat1) * (Math.PI / 180);
     var dLon = (lon2-lon1) * (Math.PI / 180);
@@ -79,8 +48,10 @@ function gps_distance(lat1, lon1, lat2, lon2)
 function displayMap(getLatLongId) {
 
 
-    var getKey
+    var getCoors
+    var time, dist;
 
+    //Display list of tracking
     $("body").on('click','#history_tracklist li a', function()
     {
         markersLayer.clearLayers();
@@ -91,33 +62,30 @@ function displayMap(getLatLongId) {
     });
 
 
+
     $("body").on("pageshow",'#track_info', function(event, ui) {
         markersLayer.clearLayers();
         latlngs = [];
-        //display time
 
         console.log("hey",getLatLongId.features[0].properties.time)
 
-
-        //measure distance from orign and dest
-        // When the user views the Track Info page
-
         // Find the track_id of the workout they are viewing
         var key = $(this).attr("track_id");
+
         console.log("this is key ", getLatLongId)
+
         // Update the Track Info page header to the track_id
         $("#track_info div[data-role=header] h1").text(key);
 
 
-        // makeBasicMap();
-        var time, dist;
 
+        // assign object coordinates to var
         for (var i = 0; i < getLatLongId.features.length; i++) {
-            if (getLatLongId.features[i].properties.trackID === key) {
-                getKey = getLatLongId.features[i].geometry.coordinates
+            if (getLatLongId.features[i].properties.TrackID === key) {
+                getCoors = getLatLongId.features[i].geometry.coordinates
 
 
-
+                //get the time and distance
                 time  = getLatLongId.features[i].properties.time;
                 dist = getLatLongId.features[i].properties.distance;
                 //display time and distance
@@ -130,38 +98,24 @@ function displayMap(getLatLongId) {
 
 
 
-
-        //console.log("getkey huuuu I got key And Ill get good grade too",getKey);
-
-
-        console.log("dist",gps_distance(getKey[0][0],getKey[0][1],getKey[getKey.length-1][0],getKey[getKey.length-1][1]))
-
         // Turn the stringified GPS data back into a JS object
 
 
-
-
-        for ( i = 0; i < getKey.length; i++) {
-            latlngs.push(new L.LatLng(getKey[i][0], getKey[i][1]));
+        //push coordinates to lalngs
+        for ( i = 0; i < getCoors.length; i++) {
+            latlngs.push(new L.LatLng(getCoors[i][0], getCoors[i][1]));
         }
 
 
 
 
-
+        //display map
         RenderMap('map',latlngs);
 
-
+        //create markers
         path = L.polyline(latlngs);
         marker1 = L.marker(latlngs[0]);
         marker2 = L.marker(latlngs[i - 1]);
-
-
-
-
-// Calculate the total distance travelled
-
-
         markersLayer= L.layerGroup([marker1, marker2,path]).addTo(map);
         path.snakeIn();
 
@@ -174,8 +128,7 @@ function displayMap(getLatLongId) {
 function RenderMap(getMapId,fitbound)
 {
 
-
-
+    //display map
     if(map === null || map === undefined)
     {
 
@@ -201,51 +154,44 @@ function RenderMap(getMapId,fitbound)
 
 function recordLocation() {
 
-
-
     // noinspection JSAnnotator
     var seconds = 00;
     // noinspection JSAnnotator
-    var tens = 00;
-    var min = 0;
+    var milliseconds = 00;
+    var minutes = 0;
 
-    var appendTens = document.getElementById("tens")
-    var appendSeconds = document.getElementById("seconds")
-    var appendMin = document.getElementById("minutes")
-    // var buttonStart = document.getElementById('startTracking_start');
-    var buttonStop = document.getElementById('startTracking_stop');
+    var getmilliseconds = document.getElementById("milliseconds")
+    var getSeconds = document.getElementById("seconds")
+    var getMinutes = document.getElementById("minutes")
     var Interval;
 
 
     function startTimer() {
-        tens++;
-        if (tens < 9) {
-            appendTens.innerHTML = "0" + tens;
+        milliseconds++;
+        if (milliseconds < 9) {
+            getmilliseconds.innerHTML = "0" + milliseconds;
         }
 
-        if (tens > 9) {
-            appendTens.innerHTML = tens;
+        if (milliseconds > 9) {
+            getmilliseconds.innerHTML = milliseconds;
 
 
         }
 
-        if (tens > 99) {
+        if (milliseconds > 99) {
             console.log("seconds");
 
             seconds++;
-            appendSeconds.innerHTML = "0" + seconds;
-            tens = 0;
-            appendTens.innerHTML = "0" + 0;
+            getSeconds.innerHTML = "0" + seconds;
+            milliseconds = 0;
+            getmilliseconds.innerHTML = "0" + 0;
         }
 
-        if (seconds > 9) {
-            appendSeconds.innerHTML = seconds;
-        }
 
         if (seconds > 59) {
 
-            min++;
-            appendMin.innerHTML = min
+            minutes++;
+            getMinutes.innerHTML = minutes
 
             seconds = 0;
         }
@@ -261,6 +207,7 @@ function recordLocation() {
 
         $("#track_id").hide();
 
+        //append track id
         $("#startTracking_status").html("Tracking workout: <strong>" + track_id + "</strong>");
 
 
@@ -270,7 +217,7 @@ function recordLocation() {
 
     });
 
-
+    //start tracking a get positions
     $("body").on("pageshow", '#startTracking', function (event, ui) {
 
         // onSuccess Callback
@@ -283,7 +230,6 @@ function recordLocation() {
             tracking_data.push(position.coords.latitude, position.coords.longitude);
             console.log("this is tracking", tracking_data);
 
-            getPictures(position.coords.latitude, position.coords.longitude);
         };
 
         // onError Callback receives a PositionError object
@@ -303,19 +249,16 @@ function recordLocation() {
 
     });
 
-
+    //stop tracking
     $("body").on('click', '#startTracking_stop', function () {
 
 
 
-        console.log("this is value", min);
+        console.log("this is value", minutes);
         console.log("this is value", seconds);
 
         // Stop tracking the user
         navigator.geolocation.clearWatch(watch_id);
-
-        // Save the tracking data
-        window.localStorage.setItem(track_id, JSON.stringify(tracking_data));
 
         //console.log(window.localStorage.setItem(track_id, JSON.stringify(tracking_data)));
         console.log("this is other tracking ", tracking_data)
@@ -336,7 +279,6 @@ function recordLocation() {
 
 
 
-        var URL = "http://127.0.0.1:8000/listloc/";
         var obj2 = {
             "type": "Feature",
             "geometry": {
@@ -350,12 +292,12 @@ function recordLocation() {
             "properties": {
                 "TrackID": track_id,
                 "distance": dist,
-                "time": min +":"+ seconds
+                "time": minutes +":"+ seconds
             }
         };
 
+        // send data to server
 
-        //alert(obj2)
         var myJSON = JSON.stringify(obj2);
         console.log("woooork", myJSON);
 
@@ -381,20 +323,18 @@ function recordLocation() {
 
         clearInterval(Interval);
 
-        tens = "00";
+        milliseconds = "00";
         seconds = "00";
 
 
-        appendTens.innerHTML = tens;
-        appendSeconds.innerHTML = seconds;
+        getmilliseconds.innerHTML = milliseconds;
+        getSeconds.innerHTML = seconds;
 
     });
 
 
-
-
-
 }
+
 
 
 function populateHistory()
@@ -403,7 +343,7 @@ function populateHistory()
 
     $("body").on("pageshow",'#history', function(event, ui)
    {
-       var URL= "http://127.0.0.1:8000/listloc/";
+        //display list of tracking
        const xhr = new XMLHttpRequest();
        xhr.onreadystatechange = function () {
            if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -427,7 +367,7 @@ function populateHistory()
                    {
 
                        console.log("all coors2", getCoors);
-                       $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + response.features[i].properties.trackID + "</a></li>");
+                       $("#history_tracklist").append("<li><a href='#track_info' data-ajax='false'>" + response.features[i].properties.TrackID + "</a></li>");
                    }
                    // refresh list
                    $("#history_tracklist").listview('refresh');
@@ -447,11 +387,6 @@ function populateHistory()
 }
 
 
-
-function onLocationError(error) {
-    console.log('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
-}
 
 
 

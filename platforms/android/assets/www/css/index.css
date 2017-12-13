@@ -11,3 +11,8 @@
 
     width: 500px;
 }
+
+
+#seconds, #tens, #minutes{
+    font-size:2em;
+}

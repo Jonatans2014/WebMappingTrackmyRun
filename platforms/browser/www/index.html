@@ -44,6 +44,7 @@
 
 
 
+
         <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
               integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
               crossorigin=""></script>-->
@@ -52,43 +53,13 @@
       <link href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" rel="stylesheet" type="text/css" />
       <!-- <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script> -->
         <script src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet-src.js"></script>
-
         <script  src="js/L.Polyline.SnakeAnim.js"></script>
-
         <link rel="stylesheet" href="css/index.css" />
-
-
-
 
 
         <title>TrackMyRun</title>
     </head>
 <body>
-<!-- Start of Home page -->
-<div data-role="page" id="home">
-
-    <div data-role="header">
-
-        <h1>Home</h1>
-
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
-                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
-                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div data-role="content">
-        <p>Welcome to the <em>ExerciseTracker</em> app. By clicking <em>Track Workout</em> you can record your workouts using the GPS feature on your phone. Learn how to build this app by reading <em>mobile.tutsplus.com</em>.</p>
-
-        <button id="home_network_button" data-icon="check">Internet Access Enabled</button>
-        <button id="home_clearstorage_button">Clear local storage</button>
-        <button id="home_seedgps_button">Load Seed GPS Data</button>
-    </div>
-
-
 </div>
 <!-- End of Home page -->
 
@@ -100,7 +71,6 @@
 
         <div data-role="navbar">
             <ul>
-                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
                 <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
                 <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
             </ul>
@@ -117,7 +87,7 @@
         <button data-role="button"  id="startTracking_start" >Start Tracking</button>
         <button data-role="button" id="startTracking_stop" >Stop Tracking</button>
 
-        <p><span id="minutes">00</span>:<span id="seconds">00</span>:<span id="tens">00</span></p>
+        <p><span id="minutes">00</span>:<span id="seconds">00</span>:<span id="milliseconds">00</span></p>
 
     </div>
 
@@ -132,7 +102,7 @@
 
         <div data-role="navbar">
             <ul>
-                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+
                 <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
                 <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
             </ul>
@@ -158,7 +128,7 @@
 
         <div data-role="navbar">
             <ul>
-                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+
                 <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
                 <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
             </ul>
@@ -188,8 +158,6 @@
 
 <!-- /rest of the code needs to be here so the code can work-->
         <script>
-
-
 
 
         </script>
